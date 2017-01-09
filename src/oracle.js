@@ -1,5 +1,8 @@
 // probabilities of 1/16, 5/16, 7/16, and 3/16
 let arr = [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9];
+let line = 0;
+let lines = [];
+let numlines = 0;
 let hexagram = 0;
 
 // Maps hexagram to James Dekorne's I Ching Pagee
@@ -7,24 +10,23 @@ function returnURL(hexagramNum) {
 	prefixUrl = "http://www.jamesdekorne.com/GBCh/hex";
 	postUrl = ".htm";
 	hexagramNum.toString();
-	return prefixUrl + hexagramNum + postUrl
+	return prefixUrl + hexagramNum + postUrl;
 }
 
 // Returns integer corresponding to a hexagram line
 function getLine() {
 	shuffle(arr);
-	return arr[0];
+	line = arr[0];
+	lines.push(line);
+	numlines++;
+	return line;
 }
 
-// Runs getLine() 6 times and passes array to linesToHexagram()
-function getHexagram() {
-	let lines = [];
-	let i = 0;
-	while (i < 6) {
-		lines.push(getLine());
-		i++;
-	}
-	return linesToHexagram(lines);
+function eraseHexagram() {
+	line = 0;
+	numlines = 0;
+	hexagram = 0;
+	lines = [];
 }
 
 // Takes an array of line nums and gives resulting hexagram
@@ -179,7 +181,4 @@ const Hexagrams = {
 	63:	'787878',
 	64:	'878787',
 };
-
-console.log(linesToHexagram([7,7,8,8,8,7]));
-
 

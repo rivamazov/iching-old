@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="oracle.js"></script>
+  <script type='text/javascript' src='./dist/oracle.js'></script>
+
+  
 </head>
 <body>
 
@@ -16,43 +18,34 @@
 	<h2>I Ching</h2>
   <p>Click below to consult the oracle.</p>
   <button class="btn" id="cast">Cast Line</button>
-  <!--<button class="btn" id="cast-hexagram">Cast Hexagram</button>-->
   <button class="btn" id="refresh">Reset</button>
   
 
   <div id="lines"></div>
   <div id="hexagram"></div>
   <h3 id="result"></h3>
-
   <script>
-  	let line;
-  	let num_lines = 0;
-  	let lines = [];
-
   	$('#cast').on('click', function() {
-  		line = getLine();
-  		$('<code>'+line+'</code>').appendTo('#lines');
-  		lines.push(line);
-  		num_lines++;
-
-  		//if get 6 lines then calculate hexagram and possible second
-  		if (num_lines <= 6) {
+  		$('<code>'+getLine()+'</code>').appendTo('#lines');
+   		//if get 6 lines then calculate hexagram and possible second
+  		if (numlines <= 6) {
   			$('<br /><div>'+lineToAscii(line)+'</div>').prependTo('#hexagram');
-  			if (num_lines == 6) {
-  				let result = linesToHexagram(lines);
-          $('<br /><div>'+result+'</div>').appendTo('#result');
-          let url = returnURL(hexagram);
-          $("<form class='btn' action='"+url+"'><input type='submit' /></form>").appendTo('#result');
-  		  }
-			};
+  			if (numlines == 6) {
+          $('<div>'+linesToHexagram(lines)+'</div>').appendTo('#result');
+          $("<br /><button class='btn' id='websearch'>Search</button>").appendTo('#result');
+          $('#websearch').on('click', function() {
+            setURL();
+            window.open(dekornURL);
+          });
+        }
+			}
   	});
 
   	$('#refresh').on('click', function() {
   		$('#lines').empty();
   		$('#hexagram').empty();
   		$('#result').empty();
-  		num_lines = 0;
-  		lines = [];
+  		eraseHexagram();
   	});
 
   	$('#cast-hexagram').on('click', function() {
