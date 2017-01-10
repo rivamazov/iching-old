@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // probabilities of 1/16, 5/16, 7/16, and 3/16
 var arr = [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9];
@@ -7,6 +7,16 @@ var lines = [];
 var numlines = 0;
 var hexagram = 0;
 var dekornURL = '';
+
+$(function () {
+	$('#help').on('click', function () {
+		if ($('#instructions').css('display') == 'none') {
+			$('#instructions').css('display', 'inline-block');
+		} else {
+			$('#instructions').css('display', 'none');
+		}
+	});
+});
 
 // Maps hexagram to James Dekorne's I Ching Pagee
 function setURL() {

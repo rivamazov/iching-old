@@ -4,13 +4,25 @@ let line = 0;
 let lines = [];
 let numlines = 0;
 let hexagram = 0;
+let dekornURL = '';
+
+$(function() {
+	$('#help').on('click', function() {
+		if ($('#instructions').css('display') == 'none') {
+			$('#instructions').css('display', 'inline-block');
+		}
+		else {
+			$('#instructions').css('display', 'none');
+		}	
+	});
+});
 
 // Maps hexagram to James Dekorne's I Ching Pagee
-function returnURL(hexagramNum) {
-	prefixUrl = "http://www.jamesdekorne.com/GBCh/hex";
-	postUrl = ".htm";
-	hexagramNum.toString();
-	return prefixUrl + hexagramNum + postUrl;
+function setURL() {
+	let prefixUrl = "http://www.jamesdekorne.com/GBCh/hex";
+	let postUrl = ".htm";
+	let hexstr = hexagram.toString();
+	dekornURL = prefixUrl + hexstr + postUrl;
 }
 
 // Returns integer corresponding to a hexagram line
@@ -36,15 +48,15 @@ function linesToHexagram(arr) {
 	const primary = getPrimary(arr);
 	// if the arrays are equal then no changing lines and return hexagram no.
 	// uses arrow functions because comparing arrays in javascript
+	const p = hexagramLookup(primary);
+	hexagram = p;
 	if (arr.length==primary.length && arr.every((v,i)=> v === primary[i])) {
-		return hexagramLookup(arr);
+		return p;
 	}
 	else {
 		const secondary = getSecondary(arr);
-		const p = hexagramLookup(primary);
 		const s = hexagramLookup(secondary);
 		const c = changingLines(arr);
-		hexagram = p;
 		return (p + c + ' --> ' + s);
 	}
 }

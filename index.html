@@ -14,13 +14,23 @@
 <body>
 
 
-<div class="container-fluid text-center">
+<div class="container text-center">
 	<h2>I Ching</h2>
   <p>Click below to consult the oracle.</p>
   <button class="btn" id="cast">Cast Line</button>
   <button class="btn" id="refresh">Reset</button>
-  
+  <button class="btn" id="help">?</button>
 
+  <div id="instructions" class="text-center" style="display:none;"></br />
+  <ul>
+    <li>Press Cast Line 6 times to generate a hexagram. The hexagram is built from the bottom up. The numbers 6 through 9 correspond to changing yin, yang, yin, and changing yang respectively.
+    </li>
+    <li>A yang line is an unbroken line and yin lines are broken. A 6 is represented by ===x=== and signifies a yin line that alternates to yang. A 9 is the reverse and is represented by ===o===. If there are are any changing lines, then you will receive two hexagrams. 
+    </li>
+    <li>The changing lines are the numbers after the base hexagram ie. (21.1.4 --> 23) means hexagram 21 with changing lines 1 and 4 alternating to 23.
+    </li>
+  </ul>
+  </div>
   <div id="lines"></div>
   <div id="hexagram"></div>
   <h3 id="result"></h3>
