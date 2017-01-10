@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>I Ching</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type='text/javascript' src='./dist/oracle.js'></script>
+
+  
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./index.html">yijing.herokuapp.com</a>
+    </div>
+      <ul class="nav navbar-nav">
+        <li class="active pull-right"><a href="./about.html">About</a></li>
+      </ul>
+  </div>
+</nav>
+
+<div class="container-fluid text-center">
+  <p>Uses probabilities from the yarrow stalk method. 6, 9, 7 and 8 have a 1/16, 3/16, 5/16, 7/16 chance of occuring respectively.</p>
+  <p>Internally it is just an array of 16 numbers with 1/16 of them 6, 3/16 of them 9 and so on [6, 9, 9, 9, 7, 7, ...].</p>
+  <p>Every time you hit cast line it just shuffles the array and gives you the first element in the array.</p>
+  <p>So I guess it's actually just the marble method.</p>
+</div>
+</body>
+</html>
