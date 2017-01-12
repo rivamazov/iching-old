@@ -6,7 +6,9 @@ var line = 0;
 var lines = [];
 var numlines = 0;
 var hexagram = 0;
+var hexagram2 = 0;
 var dekornURL = '';
+var dekornURL2 = '';
 
 $(function () {
 	$('#help').on('click', function () {
@@ -24,6 +26,9 @@ function setURL() {
 	var postUrl = ".htm";
 	var hexstr = hexagram.toString();
 	dekornURL = prefixUrl + hexstr + postUrl;
+	if (parseInt(hexagram2) > 0) {
+		dekornURL2 = prefixUrl + hexagram2 + postUrl;
+	}
 }
 
 // Returns integer corresponding to a hexagram line
@@ -39,6 +44,7 @@ function eraseHexagram() {
 	line = 0;
 	numlines = 0;
 	hexagram = 0;
+	hexagram2 = 0;
 	lines = [];
 }
 
@@ -59,6 +65,7 @@ function linesToHexagram(arr) {
 		var secondary = getSecondary(arr);
 		var s = hexagramLookup(secondary);
 		var c = changingLines(arr);
+		hexagram2 = s;
 		return p + c + ' --> ' + s;
 	}
 }

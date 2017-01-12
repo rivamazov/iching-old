@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type='text/javascript' src='./dist/oracle.js'></script>
+  <link rel="stylesheet" type="text/css" href="./main.css">
 
   
 </head>
@@ -21,22 +22,19 @@
   </div>
 </nav>
 <div class="container text-center">
-	<h2>I Ching</h2>
+	<h3>I Ching</h3>
   <p>Click below to consult the oracle.</p>
   <button class="btn" id="cast">Cast Line</button>
   <button class="btn" id="refresh">Reset</button>
-  <button class="btn" id="help">?</button>
+  <button class="btn" id="help">Help</button>
 
   <div id="instructions" class="text-left" style="display:none;"></br />
   <ul>
-    <li>Press Cast Line 6 times to generate a hexagram. The hexagram is built from the bottom up. The numbers 6 through 9 correspond to changing yin, yang, yin, and changing yang respectively.
-    </li>
-    <li>A yang line is an unbroken line and yin lines are broken. A 6 is represented by ===x=== and signifies a yin line that alternates to yang. A 9 is the reverse and is represented by ===o===. 
-    </li>
-    <li>If there are are any changing lines, then you will receive two hexagrams. 
-    </li>
-    <li>The changing lines are the numbers after the base hexagram i.e. (21.1.4 --> 23) means hexagram 21 with changing lines 1 and 4 alternating to 23.
-    </li>
+    <li>Think of a question along the lines of, "what would be the result of ...", or "give me some insight into ...", or simply say, "HIT ME" the answer is a symbolic representation of your current trajectory (or something like that).</li>
+    <li>Press Cast Line 6 times to generate a hexagram. The hexagram is built from the bottom up. The numbers 6 through 9 correspond to changing yin, yang, yin, and changing yang respectively.</li>
+    <li>A yang line is an unbroken line and yin lines are broken. A 6 is represented by ===x=== and signifies a yin line that alternates to yang. A 9 is the reverse and is represented by ===o===. </li>
+    <li>If there are are any changing lines, then you will receive two hexagrams. </li>
+    <li>The changing lines are the numbers after the base hexagram i.e. (21.1.4 --> 23) means hexagram 21 with changing lines 1 and 4 alternating to 23.</li>
   </ul>
   </div>
   <div id="lines"></div>
@@ -50,11 +48,18 @@
   			$('<br /><div>'+lineToAscii(line)+'</div>').prependTo('#hexagram');
   			if (numlines == 6) {
           $('<div>'+linesToHexagram(lines)+'</div>').appendTo('#result');
-          $("<br /><button class='btn' id='websearch'>Search</button>").appendTo('#result');
+          setURL();
+          $("<br /><button class='btn' id='websearch'>"+hexagram+"</button>").appendTo('#result');
           $('#websearch').on('click', function() {
-            setURL();
             window.open(dekornURL);
           });
+          if (hexagram2 > 0) {
+            $("<button class='btn' id='websearch2'>"+hexagram2+"</button>").appendTo('#result');
+            $('#websearch2').on('click', function() {
+              console.log(dekornURL2);
+              window.open(dekornURL2);
+            });
+          }
         }
 			}
   	});
