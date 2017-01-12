@@ -4,7 +4,9 @@ let line = 0;
 let lines = [];
 let numlines = 0;
 let hexagram = 0;
+let hexagram2 = 0;
 let dekornURL = '';
+let dekornURL2 = '';
 
 $(function() {
 	$('#help').on('click', function() {
@@ -19,10 +21,13 @@ $(function() {
 
 // Maps hexagram to James Dekorne's I Ching Pagee
 function setURL() {
-	let prefixUrl = "http://www.jamesdekorne.com/GBCh/hex";
-	let postUrl = ".htm";
+	const prefixUrl = "http://www.jamesdekorne.com/GBCh/hex";
+	const postUrl = ".htm";
 	let hexstr = hexagram.toString();
 	dekornURL = prefixUrl + hexstr + postUrl;
+	if (parseInt(hexagram2) > 0) {
+		dekornURL2 = prefixUrl + hexagram2 + postUrl;
+	}
 }
 
 // Returns integer corresponding to a hexagram line
@@ -38,6 +43,7 @@ function eraseHexagram() {
 	line = 0;
 	numlines = 0;
 	hexagram = 0;
+	hexagram2 = 0;
 	lines = [];
 }
 
@@ -57,6 +63,7 @@ function linesToHexagram(arr) {
 		const secondary = getSecondary(arr);
 		const s = hexagramLookup(secondary);
 		const c = changingLines(arr);
+		hexagram2 = s;
 		return (p + c + ' --> ' + s);
 	}
 }
