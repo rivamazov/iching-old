@@ -1,4 +1,32 @@
 // probabilities of 1/16, 5/16, 7/16, and 3/16
+
+
+let Oracle = {
+
+	hexagram: 0,
+	arr: [6, 7, 7, 7,7 ,7,77 ,,7],
+
+	l
+
+
+	setURL: function {
+		const prefixUrl = "http://www.jamesdekorne.com/GBCh/hex";
+		const postUrl = ".htm";
+		let hexstr = hexagram.toString();
+		dekornURL = prefixUrl + hexstr + postUrl;
+		if (parseInt(hexagram2) > 0) {
+			kornURL2 = prefixUrl + hexagram2 + postUrl;
+		}
+
+
+		makeStuff: function () {
+			let a = this.setUrl()
+		}
+}
+
+
+}
+
 let arr = [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9];
 let line = 0;
 let lines = [];
@@ -7,17 +35,6 @@ let hexagram = 0;
 let hexagram2 = 0;
 let dekornURL = '';
 let dekornURL2 = '';
-
-$(function() {
-	$('#help').on('click', function() {
-		if ($('#instructions').css('display') == 'none') {
-			$('#instructions').css('display', 'inline-block');
-		}
-		else {
-			$('#instructions').css('display', 'none');
-		}	
-	});
-});
 
 // Maps hexagram to James Dekorne's I Ching Pagee
 function setURL() {
