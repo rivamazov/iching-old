@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type='text/javascript' src='./dist/oracle.js'></script>
+  <script type='text/javascript' src='./src/oracle.js'></script>
   <link rel="stylesheet" type="text/css" href="./main.css">
 
   
@@ -23,8 +23,10 @@
 
   <div id="instructions" class="text-left" style="display:none;"></br />
   <ul>
-    <li>Think of a question along the lines of, "what would be the result of ...", or "give me some insight into ...", or simply say, "HIT ME" the answer is a symbolic representation of your current trajectory (or something like that).</li>
-    <li>Press Cast Line 6 times to generate a hexagram. The hexagram is built from the bottom up. The numbers 6 through 9 correspond to changing yin, yang, yin, and changing yang respectively.</li>
+    <li>Uses probabilities from the yarrow stalk method. 6, 9, 7 and 8 have a 1/16, 3/16, 5/16, 7/16 chance of occuring respectively. Internally it is just an array of 16 numbers with 1/16 of them 6, 3/16 of them 9 and so on [6, 9, 9, 9, 7, 7, ...]. Every time you hit cast line it just shuffles the array and gives you the first element in the array.</li>
+
+
+    
     <li>A yang line is an unbroken line and yin lines are broken. A 6 is represented by ===x=== and signifies a yin line that alternates to yang. A 9 is the reverse and is represented by ===o===. </li>
     <li>If there are are any changing lines, then you will receive two hexagrams. </li>
     <li>The changing lines are the numbers after the base hexagram i.e. (21.1.4 --> 23) means hexagram 21 with changing lines 1 and 4 alternating to 23.</li>
@@ -39,7 +41,7 @@
   		if (numlines < 6) {
         $('<code>'+getLine()+'</code>').appendTo('#lines');
   			$('<br /><div>'+lineToAscii(line)+'</div>').prependTo('#hexagram');
-  			if (numlines == 6) {
+  			if (numlines === 6) {
           $('<div>'+linesToHexagram(lines)+'</div>').appendTo('#result');
           setURL();
           $("<br /><button class='btn' id='websearch'>"+hexagram+"</button>").appendTo('#result');
@@ -64,12 +66,14 @@
   		eraseHexagram();
   	});
 
-  	$('#cast-hexagram').on('click', function() {
-  		$('<br /><code>'+getHexagram()+'</code>').prependTo('#result');
-
-
-  	});
-
+    $('#help').on('click', function() {
+      if ($('#instructions').css('display') == 'none') {
+        $('#instructions').css('display', 'inline-block');
+      }
+      else {
+        $('#instructions').css('display', 'none');
+      } 
+    });
 	</script>
 </div>
 

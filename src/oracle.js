@@ -1,12 +1,18 @@
 // probabilities of 1/16, 5/16, 7/16, and 3/16
 
-
+/*
 let Oracle = {
 
+	arr: [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9],
+	line: 0,
+	lines: [],
+	numlines: 0,
 	hexagram: 0,
-	arr: [6, 7, 7, 7,7 ,7,77 ,,7],
+	hexagram2: 0,
+	dekornURL: '',
+	dekornURL2: ''
 
-	l
+}
 
 
 	setURL: function {
@@ -25,7 +31,7 @@ let Oracle = {
 }
 
 
-}
+}*/
 
 let arr = [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9];
 let line = 0;
