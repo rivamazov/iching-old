@@ -42,6 +42,51 @@ let hexagram2 = 0;
 let dekornURL = '';
 let dekornURL2 = '';
 
+function castOracle() {
+	$('#cast').on('click', function() {
+   		//if get 6 lines then calculate hexagram and possible second
+  		if (numlines < 6) {
+        $('<code>'+getLine()+'</code>').appendTo('#lines');
+  			$('<br /><div>'+lineToAscii(line)+'</div>').prependTo('#hexagram');
+  			if (numlines === 6) {
+          $('<div>'+linesToHexagram(lines)+'</div>').appendTo('#result');
+          setURL();
+          $("<br /><button class='btn' id='websearch'>"+hexagram+"</button>").appendTo('#result');
+          $('#websearch').on('click', function() {
+            window.open(dekornURL);
+          });
+          if (hexagram2 > 0) {
+            $("<button class='btn' id='websearch2'>"+hexagram2+"</button>").appendTo('#result');
+            $('#websearch2').on('click', function() {
+              console.log(dekornURL2);
+              window.open(dekornURL2);
+            });
+          }
+        }
+			}
+  	});
+};
+
+function refresh() {
+	$('#refresh').on('click', function() {
+  		$('#lines').empty();
+  		$('#hexagram').empty();
+  		$('#result').empty();
+  		eraseHexagram();
+  	});
+}
+
+function help() {
+	$('#help').on('click', function() {
+      if ($('#instructions').css('display') == 'none') {
+        $('#instructions').css('display', 'inline-block');
+      }
+      else {
+        $('#instructions').css('display', 'none');
+      } 
+    });
+}
+
 // Maps hexagram to James Dekorne's I Ching Pagee
 function setURL() {
 	const prefixUrl = "http://www.jamesdekorne.com/GBCh/hex";
@@ -224,3 +269,10 @@ const Hexagrams = {
 	64:	'878787',
 };
 
+function run() {
+	castOracle();
+    refresh();
+    help();
+}
+
+Oracle = {run: run}

@@ -24,9 +24,6 @@
   <div id="instructions" class="text-left" style="display:none;"></br />
   <ul>
     <li>Uses probabilities from the yarrow stalk method. 6, 9, 7 and 8 have a 1/16, 3/16, 5/16, 7/16 chance of occuring respectively. Internally it is just an array of 16 numbers with 1/16 of them 6, 3/16 of them 9 and so on [6, 9, 9, 9, 7, 7, ...]. Every time you hit cast line it just shuffles the array and gives you the first element in the array.</li>
-
-
-    
     <li>A yang line is an unbroken line and yin lines are broken. A 6 is represented by ===x=== and signifies a yin line that alternates to yang. A 9 is the reverse and is represented by ===o===. </li>
     <li>If there are are any changing lines, then you will receive two hexagrams. </li>
     <li>The changing lines are the numbers after the base hexagram i.e. (21.1.4 --> 23) means hexagram 21 with changing lines 1 and 4 alternating to 23.</li>
@@ -35,48 +32,11 @@
   <div id="lines"></div>
   <div id="hexagram"></div>
   <h3 id="result"></h3>
-  <script>
-  	$('#cast').on('click', function() {
-   		//if get 6 lines then calculate hexagram and possible second
-  		if (numlines < 6) {
-        $('<code>'+getLine()+'</code>').appendTo('#lines');
-  			$('<br /><div>'+lineToAscii(line)+'</div>').prependTo('#hexagram');
-  			if (numlines === 6) {
-          $('<div>'+linesToHexagram(lines)+'</div>').appendTo('#result');
-          setURL();
-          $("<br /><button class='btn' id='websearch'>"+hexagram+"</button>").appendTo('#result');
-          $('#websearch').on('click', function() {
-            window.open(dekornURL);
-          });
-          if (hexagram2 > 0) {
-            $("<button class='btn' id='websearch2'>"+hexagram2+"</button>").appendTo('#result');
-            $('#websearch2').on('click', function() {
-              console.log(dekornURL2);
-              window.open(dekornURL2);
-            });
-          }
-        }
-			}
-  	});
-
-  	$('#refresh').on('click', function() {
-  		$('#lines').empty();
-  		$('#hexagram').empty();
-  		$('#result').empty();
-  		eraseHexagram();
-  	});
-
-    $('#help').on('click', function() {
-      if ($('#instructions').css('display') == 'none') {
-        $('#instructions').css('display', 'inline-block');
-      }
-      else {
-        $('#instructions').css('display', 'none');
-      } 
-    });
-	</script>
 </div>
 
+<script>
+  Oracle.run();
+</script>
 
 </body>
 </html>
