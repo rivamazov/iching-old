@@ -1,55 +1,68 @@
 // probabilities of 1/16, 5/16, 7/16, and 3/16
+Vue.component('hex-line', {
+	props: ['hex'],
+	template: '<p> {{ hex.line }} </p>'
 
-/*
-let Oracle = {
-
-	arr: [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9],
-	line: 0,
-	lines: [],
-	numlines: 0,
-	hexagram: 0,
-	hexagram2: 0,
-	dekornURL: '',
-	dekornURL2: ''
-
-}
-
-
-	setURL: function {
-		const prefixUrl = "http://www.jamesdekorne.com/GBCh/hex";
-		const postUrl = ".htm";
-		let hexstr = hexagram.toString();
-		dekornURL = prefixUrl + hexstr + postUrl;
-		if (parseInt(hexagram2) > 0) {
-			kornURL2 = prefixUrl + hexagram2 + postUrl;
-		}
-
-
-		makeStuff: function () {
-			let a = this.setUrl()
-		}
-}
-
-
-}*/
-
-let arr = [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9];
-let line = 0;
-let lines = [];
-let numlines = 0;
-let hexagram = 0;
-let hexagram2 = 0;
-let dekornURL = '';
-let dekornURL2 = '';
+})
+var app = new Vue({
+  el: '#app',
+  data: {
+  	message: "hello",
+  	arr: [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9],
+		line: 0,
+		lines: [],
+		numLines: 0,
+		hexagram: 0,
+		hexagram2: 0,
+		dekornURL: '',
+		dekornURL2: '',
+		helpVisible: false,
+		helpText: 'Your hexagram is The first number, if there are dots they signify changing lines and the resulting secondary hexagram i.e. 17.4.6 --> 42 means hexagram 17 with changing lines 4 and 6 alternating to hexagram 42.',
+		complete: false
+  },
+  methods: {
+  	toggleHelp: function() {
+  		this.helpVisible = !this.helpVisible;
+  	},
+  	castLine: function() {
+  		shuffle(this.arr);
+  		this.numLines = this.line = this.arr[0];
+  		this.lines.unshift(this.line);
+  		if (this.lines.length === 6) this.complete = true;
+  	},
+  	lineToAscii(line) {
+  		switch(line) {
+				case 8: return "=== ==="
+				case 7: return "======="
+				case 9: return "===&theta;==="
+				case 6: return "===x==="
+			}
+  	},
+  	decodeHtml: function (html) {
+  		var txt = document.createElement("textarea");
+  		txt.innerHTML = html;
+  		return txt.value
+  	},
+  	reset: function() {
+  			this.line = 0
+				this.numlines = 0
+				this.hexagram = 0
+				this.hexagram2 = 0
+				this.lines = []
+				this.helpVisible = false
+				this.complete = false
+  	}
+  }
+})
 
 function castOracle() {
 	$('#cast').on('click', function() {
    		//if get 6 lines then calculate hexagram and possible second
-  		if (numlines < 6) {
+  		if (app.numlines < 6) {
         $('<code>'+getLine()+'</code>').appendTo('#lines');
-  			$('<br /><div>'+lineToAscii(line)+'</div>').prependTo('#hexagram');
-  			if (numlines === 6) {
-          $('<div>'+linesToHexagram(lines)+'</div>').appendTo('#result');
+  			$('<br /><div>'+lineToAscii(app.line)+'</div>').prependTo('#hexagram');
+  			if (app.numlines === 6) {
+          $('<div>'+linesToHexagram(app.lines)+'</div>').appendTo('#result');
           setURL();
           $("<br /><button class='btn' id='websearch'>"+hexagram+"</button>").appendTo('#result');
           $('#websearch').on('click', function() {
@@ -63,7 +76,7 @@ function castOracle() {
             });
           }
         }
-			}
+		}
   	});
 };
 
@@ -74,17 +87,6 @@ function refresh() {
   		$('#result').empty();
   		eraseHexagram();
   	});
-}
-
-function help() {
-	$('#help').on('click', function() {
-      if ($('#instructions').css('display') == 'none') {
-        $('#instructions').css('display', 'inline-block');
-      }
-      else {
-        $('#instructions').css('display', 'none');
-      } 
-    });
 }
 
 // Maps hexagram to James Dekorne's I Ching Pagee
@@ -99,6 +101,7 @@ function setURL() {
 }
 
 // Returns integer corresponding to a hexagram line
+// And changes array
 function getLine() {
 	shuffle(arr);
 	line = arr[0];

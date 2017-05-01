@@ -7,37 +7,33 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type='text/javascript' src='./src/oracle.js'></script>
+  <script src="https://unpkg.com/vue"></script>
   <link rel="stylesheet" type="text/css" href="./main.css">
-
   
+
 </head>
+  
 <body>
 
 <div class="container text-center">
 	<h3>I Ching</h3>
-  <p>Click below to consult the oracle.</p>
-  <button class="btn" id="cast">Cast Line</button>
-  <button class="btn" id="refresh">Reset</button>
-  <button class="btn" id="help">Help</button>
-
-  <div id="instructions" class="text-left" style="display:none;"></br />
-  <ul>
-    <li>Uses probabilities from the yarrow stalk method. 6, 9, 7 and 8 have a 1/16, 3/16, 5/16, 7/16 chance of occuring respectively. Internally it is just an array of 16 numbers with 1/16 of them 6, 3/16 of them 9 and so on [6, 9, 9, 9, 7, 7, ...]. Every time you hit cast line it just shuffles the array and gives you the first element in the array.</li>
-    <li>A yang line is an unbroken line and yin lines are broken. A 6 is represented by ===x=== and signifies a yin line that alternates to yang. A 9 is the reverse and is represented by ===o===. </li>
-    <li>If there are are any changing lines, then you will receive two hexagrams. </li>
-    <li>The changing lines are the numbers after the base hexagram i.e. (21.1.4 --> 23) means hexagram 21 with changing lines 1 and 4 alternating to 23.</li>
-  </ul>
+  <div id="app">
+      <button class="btn" v-on:click=castLine>Cast Line</button>
+      <button class="btn" v-on:click=reset>Reset</button>
+      <button class="btn" v-on:click=toggleHelp>Help</button>
+      <div v-if="helpVisible">{{ helpText }}</div>
+      <div>{{ line }}</div>
+      <!--<hex-line v-for="line in lines" v-bind:hexagram="line"></hex-line> -->
+      <div v-for="line in lines">
+        <p> {{ lineToAscii(line)}} </p>
+      </div>
+ 
   </div>
-  <div id="lines"></div>
-  <div id="hexagram"></div>
-  <h3 id="result"></h3>
 </div>
 
-<script>
-  Oracle.run();
-</script>
-
 </body>
+<script type='text/javascript' src='./src/oracle.js'></script>
+
+
 </html>
 
