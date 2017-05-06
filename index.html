@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://unpkg.com/vue"></script>
+  <script src="node_modules/vue/dist/vue.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="./main.css">
   
 
@@ -23,8 +23,7 @@
       <button class="btn" v-on:click=toggleHelp>Help</button>
       <div v-if="helpVisible">{{ helpText }}</div>
       <div>{{ line }}</div>
-      <!--<hex-line v-for="line in lines" v-bind:hexagram="line"></hex-line> -->
-      <div v-for="line in lines">
+      <div v-if="complete" v-for="line in lines">
         <p> {{ lineToAscii(line)}} </p>
       </div>
  

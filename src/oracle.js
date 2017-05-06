@@ -25,16 +25,19 @@ var app = new Vue({
   		this.helpVisible = !this.helpVisible;
   	},
   	castLine: function() {
+  		if (this.lines.length === 6) {
+  			this.complete = true;
+  			return;
+  		}
   		shuffle(this.arr);
   		this.numLines = this.line = this.arr[0];
   		this.lines.unshift(this.line);
-  		if (this.lines.length === 6) this.complete = true;
   	},
   	lineToAscii(line) {
   		switch(line) {
 				case 8: return "=== ==="
 				case 7: return "======="
-				case 9: return "===&theta;==="
+				case 9: return "===o==="
 				case 6: return "===x==="
 			}
   	},
@@ -45,12 +48,16 @@ var app = new Vue({
   	},
   	reset: function() {
   			this.line = 0
-				this.numlines = 0
+				this.numLines = 0
 				this.hexagram = 0
 				this.hexagram2 = 0
 				this.lines = []
+				this.lines.clear()
 				this.helpVisible = false
 				this.complete = false
+  	},
+  	calculateHexagram: function () {
+
   	}
   }
 })
