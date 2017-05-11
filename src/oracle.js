@@ -27,6 +27,7 @@ var app = new Vue({
   	castLine: function() {
   		if (this.lines.length === 6) {
   			this.complete = true;
+  			hexagramLookup(this.lines)
   			return;
   		}
   		shuffle(this.arr);
@@ -56,9 +57,12 @@ var app = new Vue({
 				this.helpVisible = false
 				this.complete = false
   	},
-  	calculateHexagram: function () {
-
-  	}
+  	hexagramLookup(arr) {
+			const hexstr = arrayToString(arr);
+			for (let i in Hexagrams) {
+				if (Hexagrams[i] == hexstr) this.hexagram=i;
+			}
+		}
   }
 })
 
