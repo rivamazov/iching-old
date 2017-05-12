@@ -6,6 +6,7 @@ Vue.component('hex-line', {
 })
 var app = new Vue({
   el: '#app',
+
   data: {
   	message: "hello",
   	arr: [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9],
@@ -20,19 +21,21 @@ var app = new Vue({
 		helpText: 'Your hexagram is The first number, if there are dots they signify changing lines and the resulting secondary hexagram i.e. 17.4.6 --> 42 means hexagram 17 with changing lines 4 and 6 alternating to hexagram 42.',
 		complete: false
   },
+
   methods: {
   	toggleHelp: function() {
   		this.helpVisible = !this.helpVisible;
   	},
   	castLine: function() {
-  		if (this.lines.length === 6) {
-  			this.complete = true;
-  			hexagramLookup(this.lines)
-  			return;
-  		}
   		shuffle(this.arr);
   		this.numLines = this.line = this.arr[0];
   		this.lines.unshift(this.line);
+  		if (this.lines.length === 6) {
+  			this.complete = true;
+  			this.hexagram = hexagramLookup(this.lines)
+  			return;
+  		}
+
   	},
   	lineToAscii(line) {
   		switch(line) {
@@ -53,14 +56,13 @@ var app = new Vue({
 				this.hexagram = 0
 				this.hexagram2 = 0
 				this.lines = []
-				this.lines.clear()
 				this.helpVisible = false
 				this.complete = false
   	},
   	hexagramLookup(arr) {
 			const hexstr = arrayToString(arr);
 			for (let i in Hexagrams) {
-				if (Hexagrams[i] == hexstr) this.hexagram=i;
+				if (Hexagrams[i] == hexstr) return Hexagrams[i];
 			}
 		}
   }
