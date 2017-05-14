@@ -8,15 +8,13 @@ var app = new Vue({
   el: '#app',
 
   data: {
-  	message: "hello",
   	arr: [6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9],
 		line: 0,
 		lines: [],
 		numLines: 0,
-		hexagram: 0,
-		hexagram2: 0,
-		dekornURL: '',
-		dekornURL2: '',
+		hexString: "",
+		primary: 0,
+		secondary: 0,
 		helpVisible: false,
 		helpText: 'Your hexagram is The first number, if there are dots they signify changing lines and the resulting secondary hexagram i.e. 17.4.6 --> 42 means hexagram 17 with changing lines 4 and 6 alternating to hexagram 42.',
 		complete: false
@@ -28,14 +26,14 @@ var app = new Vue({
   	},
   	castLine: function() {
   		shuffle(this.arr);
-  		this.numLines = this.line = this.arr[0];
+			this.numLines ++;
+  		this.line = this.arr[0];
   		this.lines.unshift(this.line);
   		if (this.lines.length === 6) {
   			this.complete = true;
   			this.hexagram = hexagramLookup(this.lines)
   			return;
   		}
-
   	},
   	lineToAscii(line) {
   		switch(line) {
@@ -58,12 +56,54 @@ var app = new Vue({
 				this.lines = []
 				this.helpVisible = false
 				this.complete = false
+				this.secondary = 0
   	},
+  	//TODO make all functions accept arguments
+  	//returns 
   	hexagramLookup(arr) {
 			const hexstr = arrayToString(arr);
+			debugger;
 			for (let i in Hexagrams) {
 				if (Hexagrams[i] == hexstr) return Hexagrams[i];
+				else return "Something went wrong"
 			}
+		},
+		// Takes an array of line nums and gives resulting hexagram
+		// If there are changing lines, returns changes separated by .
+		linesToHexagram(arr) {
+			const primary = getPrimary(this.lines);
+			// if the arrays are equal then no changing lines and return hexagram no.
+			// uses arrow functions because comparing arrays in javascript
+			const p = hexagramLookup(primary);
+			this.hexagram = p;
+			if (arr.length==primary.length && arr.every((v,i)=> v === primary[i])) {
+				return p;
+				this.hexString = p;
+			}
+			else {
+				let secondary = getSecondary(arr);
+				const s = hexagramLookup(secondary);
+				this.secondary = s;
+				const c = changingLines(arr);
+				hexagram2 = s;
+				//return (p + c + ' --> ' + s);
+				this.hexString = (p + c + ' --> ' + s);
+			}
+		},
+		getPrimary(arr) {
+			return arr.map(function(x) {
+		  	if (x == 6) return x+=2;
+		    if (x == 9) return x-=2;
+		    return x;
+		   	});
+
+		},
+		getSecondary(arr) {
+			return arr.map(function(x) {
+		  	if (x == 6) return x+=1;
+		    if (x == 9) return x-=1;
+		    return x;
+		  });
 		}
   }
 })
