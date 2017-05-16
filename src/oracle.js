@@ -12,8 +12,8 @@ var app = new Vue({
 		line: 0,
 		lines: [],
 		numLines: 0,
-		hexString: "",
-		primary: 0,
+		hexString: "",	 //string representation of cast
+		primary: 0,	
 		secondary: 0,
 		helpVisible: false,
 		helpText: 'Your hexagram is The first number, if there are dots they signify changing lines and the resulting secondary hexagram i.e. 17.4.6 --> 42 means hexagram 17 with changing lines 4 and 6 alternating to hexagram 42.',
@@ -31,8 +31,6 @@ var app = new Vue({
   		this.lines.unshift(this.line);
   		if (this.lines.length === 6) {
   			this.complete = true;
-  			this.hexagram = hexagramLookup(this.lines)
-  			return;
   		}
   	},
   	lineToAscii(line) {
@@ -43,21 +41,7 @@ var app = new Vue({
 				case 6: return "===x==="
 			}
   	},
-  	decodeHtml: function (html) {
-  		var txt = document.createElement("textarea");
-  		txt.innerHTML = html;
-  		return txt.value
-  	},
-  	reset: function() {
-  			this.line = 0
-				this.numLines = 0
-				this.hexagram = 0
-				this.hexagram2 = 0
-				this.lines = []
-				this.helpVisible = false
-				this.complete = false
-				this.secondary = 0
-  	},
+
   	//TODO make all functions accept arguments
   	//returns 
   	hexagramLookup(arr) {
@@ -104,7 +88,18 @@ var app = new Vue({
 		    if (x == 9) return x-=1;
 		    return x;
 		  });
-		}
+		},
+
+		reset: function() {
+  			this.line = 0
+				this.numLines = 0
+				this.hexagram = 0
+				this.hexagram2 = 0
+				this.lines = []
+				this.helpVisible = false
+				this.complete = false
+				this.secondary = 0
+  	},
   }
 })
 

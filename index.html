@@ -27,8 +27,8 @@
         <p> {{ lineToAscii(line)}} </p>
       </div>
       <div v-if="complete"> {{ linesToHexagram(lines)}} {{ hexString }} </div>
-      <button class="btn" v-if="complete" v-on:click=>{{ hexagram }}</button>
-      <button class="btn" v-if="secondary" v-on:click=>{{ secondary }}</button}}</button>
+      <button class="btn" v-if="complete" v-on:click=> {{ hexagram }} </button>
+      <button class="btn" v-if="secondary" v-on:click=> {{ secondary }} </button}}
  
   </div>
 </div>
